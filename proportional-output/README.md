@@ -55,3 +55,25 @@ Simplifying, we get:
 (Number of workers) = 5
 
 Therefore, 5 workers would be needed to produce 600 units of the product in 8 hours per day.
+
+## Question 2
+
+Suppose a factory produces a certain product, and it takes 4 workers working 8 hours per day to produce 160 units of the product. If the factory wants to produce 1200 units of the same product, how many workers will be needed if they work 12 hours per day? Assume that the output per worker per hour is constant.
+
+### Answer
+
+- [ ] 10
+- [ ] 12
+- [ ] 15
+- [x] 20
+
+### Explanation
+
+```text
+Units | Hours | Workers
+-----------------------
+160   | 8     | 4
+1200  | 12    | ?
+```
+
+No. of required Workers = 4 * (1200/160) * (8/12) = 20.
