@@ -12,14 +12,12 @@ Alex rides his bike to school at 20 km/hr and comes back at 30 km/hr. What is hi
 
 If a man cycles at 10 km/hr, then he arrives at a certain place at 1 p.m. If he cycles at 15 km/hr, he will arrive at the same place at 11 a.m. At what speed must he cycle to get there at noon?
 
-- [ ] 11 km/hr
-- [ ] 12 km/hr
-- [ ] 13 km/hr
-- [ ] 14 km/hr
-
 ### Answer
 
-12 km/hr
+- [ ] 11 km/hr
+- [x] 12 km/hr
+- [ ] 13 km/hr
+- [ ] 14 km/hr
 
 ## Question 3
 
@@ -31,4 +29,3 @@ Mr. A living in Town A decided to meet his friend Mr. B who lives in Town B. Tow
 ### Answer
 
 At 01:30 PM, 350 km away from Town A.
-

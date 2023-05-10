@@ -4,14 +4,12 @@
 
 Each school sent 3 runners in a team cross country race. Alice, Belinda and Clara were the three representatives for their school. Alice finished the race in middle position, Belinda finished after Alice, in 19th position, and Clara finished 28th. How many runners took part in the race?
 
-- [ ] 27
-- [ ] 30
-- [ ] 33
-- [ ] 36
-
 ### Answer
 
-33
+- [ ] 27
+- [ ] 30
+- [x] 33
+- [ ] 36
 
 ### Explanation
 
