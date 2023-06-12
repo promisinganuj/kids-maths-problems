@@ -1,4 +1,4 @@
-# Probability
+# Probability, Permutations and Combinations
 
 ## Question 1
 
@@ -45,8 +45,6 @@ So the probability that the plate contains at least one 'A' is the complement of
 P(at least one 'A') = 1 - 0.6575 = 0.3425 (approx.)
 
 So the probability that a car number plate chosen at random contains at least one letter 'A' is approximately 0.3425 or 34.25%.
-
-# Permutations and Combinations
 
 ## Question 3
 

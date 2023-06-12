@@ -6,7 +6,10 @@ A farmer has some chickens and some goats. Together there are 116 heads and 282 
 
 ### Answer
 
-- [ ] 25 goats and 91 chickens
+- [ ] 18 goats and 125 chickens
+- [ ] 25 goats and 100 chickens
+- [ ] 20 goats and 110 chickens
+- [x] 25 goats and 91 chickens
 
 ### Explanation
 
@@ -17,7 +20,10 @@ Suppose there are only chickens. With 116 heads, there would be 116*2=232 legs. 
 There are 25 questions in a language exam. 4 marks are awarded for each correct answer and 2 marks are deducted for each wrong answer. If Sam scored 76 marks in the exam, how many questions did he get correct?
 ### Answer
 
-- [ ] 21 correct answers
+- [ ] 16
+- [x] 21
+- [ ] 18
+- [ ] 22
 
 ### Explanation
 
