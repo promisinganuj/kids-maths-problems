@@ -67,3 +67,33 @@ So, Pete must have got 3 questions wrong from the first 30 questions (4 marks ea
 Therefore, Pete answered 27 questions correct from first 30 questions (4 marks each) and 8 questions correct from last 10 questions (7 marks each).
 
 This can be cross-verified. Total marks earned = (27 * 4) + ( 8 * 7) = 108 + 56 = 164.
+
+## QUestion 4
+
+There are 20 goats more than chickens in a country farm. Given that there are 182 legs altogether, how many goats are there in the farm?
+
+### Answer
+
+- [ ] 35
+- [x] 37
+- [ ] 42
+- [ ] 50
+
+### Explanation
+
+The number of legs because of additional 20 goats = 20 * 4
+The number of legs because of additional 20 goats = 80
+
+Subtracting it from the total number of legs = 182 - 80 = 102
+
+Now, equal number of goats and chickens are contributing to these 102 legs.
+
+One pair of goat and chicken contributes to 4 + 2 = 6 legs
+Therefore, the number of pairs of goat and chicken = 106 / 6 = 17
+
+Number of Chickens = 17
+Number of Goats = 17 + 20 = 37
+
+We can cross-verify the answer by calculating the total number of legs = (17 * 2) + (37 * 4) = 34 + 148 = 182.
+
+Please note that using reasoning, we can easily eliminate option 4 (50) as it would result in 200 (50 * 4) legs. That increases the probability of the right answer from 25% (1/4) to 33.3% (1/3).
