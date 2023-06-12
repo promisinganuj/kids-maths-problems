@@ -71,7 +71,7 @@ Probability of drawing two blue balls in succession = (5/12) * (4/11)
 
 Therefore, the probability of drawing two blue balls in succession is (5/12) * (4/11) = 20/132 = 5/33, which is approximately 0.152 or 15.2%.
 
-## Question 3 (*)
+## Question 4 (*)
 
 A fair six-sided die is rolled. What is the probability of getting either an even number or a number which is divisible by 3?
 
