@@ -7,7 +7,7 @@ Description | Formula
 sum of the first $n$ natural numbers | $n*(n+1)/2$
 sum of the first $n$ even numbers | $n*(n+1)$
 sum of the first $n$ odd numbers | $n^2$
-sum of the first $n$ squares | $n*(n+1)*(2*n+1)/6$
+sum of the first $n$ squares | $(n*(n+1)*(2*n+1)/6)$
 sum of the first $n$ cubes | $(n*(n+1)/2)^2$
 The number of handshake in a group of $n$ people | $n*(n-1)/2$
 The number of diagonals in a polygon with $n$ sides | $n*(n-3)/2$
@@ -32,9 +32,9 @@ Circle | radius $r$ | $\pi*r^2$ | $2*\pi*r$
 Shape | Attributes | Volume | Surface Area
 --- | --- | --- | --- |
 Cube | side $a$ | $a^3$ | $6*a^2$
-Rectangular Prism | length $l$, width $w$ and height $h$ | $l*w*h$ | $2*(l*w+w*h+h*l)$
-Cylinder | radius $r$ and height $h$ | $\pi*r^2*h$ | $2*\pi*r^2+2*\pi*r*h$
-Cone | radius $r$ and height $h$ | $(\pi*r^2*h)/3$ | $\pi*r^2+\pi*r*\sqrt{r^2+h^2}$
+Rectangular Prism | length $l$, width $w$ and height $h$ | $(l*w*h)$ | $(2*(l*w+w*h+h*l))$
+Cylinder | radius $r$ and height $h$ | $(\pi*r^2*h)$ | $(2*\pi*r^2+2*\pi*r*h)$
+Cone | radius $r$ and height $h$ | $(\pi*r^2*h)/3$ | $(\pi*r^2+\pi*r*\sqrt{r^2+h^2})$
 Sphere | radius $r$ | $(4*\pi*r^3)/3$ | $4*\pi*r^2$
 Pyramid | base area $B$ and height $h$ | $B*h/3$ | $B+\sqrt{B^2+4*h^2}$
 
