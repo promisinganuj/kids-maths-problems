@@ -41,7 +41,7 @@ We can cross-verify the answer. For 21 correct answers:
 
 Total Score = 21 * 4 - (4 * 2) = 84 - 8 = 76.
 
-## QUestion 3
+## Question 3
 
 There are 40 questions in a science quiz. The first 30 questions are worth 4 marks and the next 10 questions are worth 7 marks each. There is no negative marking i.e., no marks are deducted for each wrong answer. Pete scored a total of 164 marks in the quiz. How many of the first 30 questions and how many of the last 10 questions does he answer correct?
 
@@ -61,11 +61,11 @@ So, the marks lost due to the wrong answers = 190 - 164 = 26.
 These 26 lost marks are due to some 3 marks questions and some 5 marks questions which are wrongly answered. Here, we have to do try the different multiples of 4 and 7 which can sum up to 26.
 
 ```
-(7 * 4) + (0 * 4) = Not possible (28 > 26)
-(7 * 3) + (_ * 4) = Not possible
-(7 * 2) + (3 * 4) = 26
-(7 * 1) + (_ * 4) = Not possible
-(7 * 0) + (_ * 4) = Not possible
+(7 * 4) + (4 * 0) = Not possible (28 > 26)
+(7 * 3) + (4 * _) = Not possible
+(7 * 2) + (4 * 3) = 26
+(7 * 1) + (4 * _) = Not possible
+(7 * 0) + (4 * _) = Not possible
 ```
 
 So, Pete must have got 3 questions wrong from the first 30 questions (4 marks each) and 2 questions wrong from last 10 questions (7 marks each).
@@ -74,7 +74,7 @@ Therefore, Pete answered 27 questions correct from first 30 questions (4 marks e
 
 This can be cross-verified. Total marks earned = (27 * 4) + ( 8 * 7) = 108 + 56 = 164.
 
-## QUestion 4
+## Question 4
 
 There are 20 goats more than chickens in a country farm. Given that there are 182 legs altogether, how many goats are there in the farm?
 
