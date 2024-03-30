@@ -5,5 +5,5 @@
 - [Chicken and goat problems](./chicken-and-goat/README.md)
 - [Proportional output problems](./proportional-output/README.md)
 - [Time, date and day problems](./time-and-dates/README.md)
-- [Permutation and combination problems](./permutations-and-combinations/README.md)
-- [Probability problems](./probability/README.md)
+- [Permutation and combination problems](./probability-permutations-combinations/README.md)
+- [Profit and loss problems](./profit-and-loss/README.md)
