@@ -87,15 +87,14 @@ There are 20 goats more than chickens in a country farm. Given that there are 18
 
 ### Explanation
 
-The number of legs because of additional 20 goats = 20 * 4
-The number of legs because of additional 20 goats = 80
+The number of legs because of additional 20 goats = 20 * 4 = 80
 
 Subtracting it from the total number of legs = 182 - 80 = 102
 
 Now, equal number of goats and chickens are contributing to these 102 legs.
 
 One pair of goat and chicken contributes to 4 + 2 = 6 legs
-Therefore, the number of pairs of goat and chicken = 106 / 6 = 17
+Therefore, the number of pairs of goat and chicken = 102 / 6 = 17
 
 Number of Chickens = 17
 Number of Goats = 17 + 20 = 37
