@@ -94,9 +94,11 @@ Subtracting it from the total number of legs = 182 - 80 = 102
 Now, equal number of goats and chickens are contributing to these 102 legs.
 
 One pair of goat and chicken contributes to 4 + 2 = 6 legs
+
 Therefore, the number of pairs of goat and chicken = 102 / 6 = 17
 
 Number of Chickens = 17
+
 Number of Goats = 17 + 20 = 37
 
 We can cross-verify the answer by calculating the total number of legs = (17 * 2) + (37 * 4) = 34 + 148 = 182.
