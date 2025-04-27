@@ -41,7 +41,7 @@ We can cross-verify the answer. For 21 correct answers:
 
 Total Score = 21 * 4 - (4 * 2) = 84 - 8 = 76.
 
-## QUestion 3
+## Question 3
 
 There are 40 questions in a science quiz. The first 30 questions are worth 4 marks and the next 10 questions are worth 7 marks each. There is no negative marking i.e., no marks are deducted for each wrong answer. Pete scored a total of 164 marks in the quiz. How many of the first 30 questions and how many of the last 10 questions does he answer correct?
 
@@ -61,11 +61,11 @@ So, the marks lost due to the wrong answers = 190 - 164 = 26.
 These 26 lost marks are due to some 3 marks questions and some 5 marks questions which are wrongly answered. Here, we have to do try the different multiples of 4 and 7 which can sum up to 26.
 
 ```
-(7 * 4) + (0 * 4) = Not possible (28 > 26)
-(7 * 3) + (_ * 4) = Not possible
-(7 * 2) + (3 * 4) = 26
-(7 * 1) + (_ * 4) = Not possible
-(7 * 0) + (_ * 4) = Not possible
+(7 * 4) + (4 * 0) = Not possible (28 > 26)
+(7 * 3) + (4 * _) = Not possible
+(7 * 2) + (4 * 3) = 26
+(7 * 1) + (4 * _) = Not possible
+(7 * 0) + (4 * _) = Not possible
 ```
 
 So, Pete must have got 3 questions wrong from the first 30 questions (4 marks each) and 2 questions wrong from last 10 questions (7 marks each).
@@ -87,17 +87,18 @@ There are 20 goats more than chickens in a country farm. Given that there are 18
 
 ### Explanation
 
-The number of legs because of additional 20 goats = 20 * 4
-The number of legs because of additional 20 goats = 80
+The number of legs because of additional 20 goats = 20 * 4 = 80
 
 Subtracting it from the total number of legs = 182 - 80 = 102
 
 Now, equal number of goats and chickens are contributing to these 102 legs.
 
-One pair of goat and chicken contributes to 4 + 2 = 6 legs
+One pair of goat and chicken contributes to 4 + 2 = 6 legs.
+
 Therefore, the number of pairs of goat and chicken = 102 / 6 = 17
 
 Number of Chickens = 17
+
 Number of Goats = 17 + 20 = 37
 
 We can cross-verify the answer by calculating the total number of legs = (17 * 2) + (37 * 4) = 34 + 148 = 182.
