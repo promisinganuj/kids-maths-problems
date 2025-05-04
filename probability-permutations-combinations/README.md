@@ -145,3 +145,47 @@ Probability of getting either an even number or a number divisible by 3 = 4 / 6
 Therefore, the probability of getting either an even number or a number divisible by 3 when rolling a fair six-sided die is 4/6, which can be simplified to 2/3 or approximately 0.667 or 66.7%.
 
 The elimination method can also be helpful here. Note that option 1 (1/2) and option 3 (3/6) are essentially the same. But two answers can't be correct. So, the correct answer is either option 2 or option 4. With this reasoning, the chances of getting to the correct answer has increased from 25% (1/4) to 50% (1/2), without even solving the problem.
+
+## Question 6 (*)
+
+What's the probability of getting at-least two heads in 3 coin flips? What's the probability of getting exactly two heads. Assume that it's a fair coin.
+
+### Answer
+
+- [ ] 5 / 8
+- [x] 4 / 8
+- [ ] 3 / 8
+- [ ] 2 / 8
+
+### Explanation
+
+To solve the problem, we need to determine the number of favorable outcomes (getting at least two heads) and the total number of possible outcomes (all possible results of flipping a fair coin three times).
+
+Total possible outcomes: Each coin flip has 2 possible outcomes (heads or tails). For 3 flips, the total number of outcomes is 2^3 = 8. The possible outcomes are:
+
+```text
+1st | 2nd | 3rd
+---------------
+H     H     H   <---
+H     H     T   <---
+H     T     H   <---
+H     T     T
+T     H     H   <---
+T     H     T
+T     T     H
+T     T     T
+````
+
+Favorable outcomes (at least two heads): HHH, HHT, HTH, THH (four outcomes).
+
+Probability of getting at least two heads = Number of favorable outcomes / Total number of possible outcomes  
+Probability of getting at least two heads = 4 / 8
+
+Therefore, the probability of getting at least two heads in 3 coin flips is 4/8, which can be simplified to 1/2 or 50%.
+
+Now, for exactly two heads, there are only 3 favorable outcomes: HHT, HTH, THH.
+
+Probability of getting exactly two heads = Number of favorable outcomes / Total number of possible outcomes  
+Probability of getting exactly two heads = 3 / 8
+
+Therefore, the probability of getting at least two heads in 3 coin flips is 3/8, which can be simplified to 0.375 or 37.5%.
