@@ -6,7 +6,10 @@ Alex rides his bike to school at 20 km/h and comes back at 30 km/h. What is his 
 
 ### Answer
 
-24 km/h
+- [ ] 18 km/h
+- [x] 24 km/h
+- [ ] 25 km/h
+- [ ] 27 km/h
 
 ## Question 2
 
@@ -29,7 +32,7 @@ Mr. A living in Town A decided to meet his friend Mr. B who lives in Town B. Tow
 ### Answer
 
 - [x] At 01:30 PM, 350 km away from Town A
-- [x] At 01;00 PM, 350 km away from Town A
+- [ ] At 01;00 PM, 350 km away from Town A
 - [ ] At 12:30 PM, 300 km away from Town A
 - [ ] At 01:30 PM, 300 km away from Town A
 

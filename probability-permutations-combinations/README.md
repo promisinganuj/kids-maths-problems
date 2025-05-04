@@ -2,7 +2,7 @@
 
 ## Question 1
 
-A bag contains 12 blue marbles and 8 red marbles. If one marble is chosen at random, what is the probability that it will be a blue marble?"
+A bag contains 12 blue marbles and 8 red marbles. If one marble is chosen at random, what is the probability that it will be a blue marble?
 
 ### Answer
 
