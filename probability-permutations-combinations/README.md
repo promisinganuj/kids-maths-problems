@@ -146,7 +146,7 @@ Therefore, the probability of getting either an even number or a number divisibl
 
 The elimination method can also be helpful here. Note that option 1 (1/2) and option 3 (3/6) are essentially the same. But two answers can't be correct. So, the correct answer is either option 2 or option 4. With this reasoning, the chances of getting to the correct answer has increased from 25% (1/4) to 50% (1/2), without even solving the problem.
 
-## Question 6 (*)
+## Question 7 (*)
 
 What's the probability of getting at-least two heads in 3 coin flips? What's the probability of getting exactly two heads. Assume that it's a fair coin.
 
@@ -189,3 +189,53 @@ Probability of getting exactly two heads = Number of favorable outcomes / Total 
 Probability of getting exactly two heads = 3 / 8
 
 Therefore, the probability of getting at least two heads in 3 coin flips is 3/8, which can be simplified to 0.375 or 37.5%.
+
+## Question 8 (*)
+
+There are 15 balls in the box that consist of 6 red balls, 3 green balls, 4 yellow balls and 2 blue balls.  
+A student took two balls from the box of 15 balls. What was the probability that the student picked a red ball and a green ball?
+
+### Answer
+
+- [ ]  2 / 35
+- [ ]  7 / 35
+- [ ]  4 / 35
+- [x]  6 / 35 
+
+### Explanation
+
+To solve this problem, start by finding the total possible outcomes.
+
+Total number of possible outcomes = Total ways of choosing 2 balls from 15 = (15 * 14) / 2 (do you understand why) = 105.
+
+Now let's find the favorable outcomes.
+
+Ways to choose 1 red ball = 6
+Ways to choose 1 green ball = 3
+
+Favorable outcomes = 6 * 3 = 18
+
+So, the probability of picking 1 red and 1 green ball = 18 / 105 = 6 / 35.
+
+## Question 9
+
+There are 15 balls in the box that consist of 6 red balls, 3 green balls, 4 yellow balls and 2 blue balls.  
+A group of student took balls from the box one by one. What was the probability that the last ball was blue?
+
+### Answer
+
+- [x]  2 / 15
+- [ ]  1 / 15
+- [ ]  4 / 15
+- [ ]  3 / 15 
+
+### Explanation
+
+If all 15 balls are drawn randomly one by one without replacement, every ball has an equal chance of being in any position — including the last.
+
+There are 2 blue balls out of 15, and all balls are equally likely to end up in the last position.
+
+So, the probability that the last ball is blue is:
+
+𝑃(last ball is blue) = Number of blue balls / Total number of balls = 2 / 15
+​
