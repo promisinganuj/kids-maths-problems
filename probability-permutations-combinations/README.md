@@ -146,7 +146,7 @@ Therefore, the probability of getting either an even number or a number divisibl
 
 The elimination method can also be helpful here. Note that option 1 (1/2) and option 3 (3/6) are essentially the same. But two answers can't be correct. So, the correct answer is either option 2 or option 4. With this reasoning, the chances of getting to the correct answer has increased from 25% (1/4) to 50% (1/2), without even solving the problem.
 
-## Question 6 (*)
+## Question 7 (*)
 
 What's the probability of getting at-least two heads in 3 coin flips? What's the probability of getting exactly two heads. Assume that it's a fair coin.
 
@@ -189,3 +189,118 @@ Probability of getting exactly two heads = Number of favorable outcomes / Total 
 Probability of getting exactly two heads = 3 / 8
 
 Therefore, the probability of getting at least two heads in 3 coin flips is 3/8, which can be simplified to 0.375 or 37.5%.
+
+## Question 8 (*)
+
+There are 15 balls in the box that consist of 6 red balls, 3 green balls, 4 yellow balls and 2 blue balls.  
+A student took two balls from the box of 15 balls. What was the probability that the student picked a red ball and a green ball?
+
+### Answer
+
+- [ ]  2 / 35
+- [ ]  7 / 35
+- [ ]  4 / 35
+- [x]  6 / 35 
+
+### Explanation
+
+To solve this problem, start by finding the total possible outcomes.
+
+Total number of possible outcomes = Total ways of choosing 2 balls from 15 = (15 * 14) / 2 (do you understand why) = 105.
+
+Now let's find the favorable outcomes.
+
+Ways to choose 1 red ball = 6
+Ways to choose 1 green ball = 3
+
+Favorable outcomes = 6 * 3 = 18
+
+So, the probability of picking 1 red and 1 green ball = 18 / 105 = 6 / 35.
+
+## Question 9
+
+There are 15 balls in the box that consist of 6 red balls, 3 green balls, 4 yellow balls and 2 blue balls.  
+A group of student took balls from the box one by one. What was the probability that the last ball was blue?
+
+### Answer
+
+- [x]  2 / 15
+- [ ]  1 / 15
+- [ ]  4 / 15
+- [ ]  3 / 15 
+
+### Explanation
+
+If all 15 balls are drawn randomly one by one without replacement, every ball has an equal chance of being in any position — including the last.
+
+There are 2 blue balls out of 15, and all balls are equally likely to end up in the last position.
+
+So, the probability that the last ball is blue is:
+
+𝑃(last ball is blue) = Number of blue balls / Total number of balls = 2 / 15
+​
+## Question 10
+
+How many 5-letter words (doesn't have to be meaningful) can be formed from the letters in the word 'radar'?
+
+### Answer
+
+- [ ] 15
+- [x] 30
+- [ ] 120
+- [ ] 5
+
+### Explanation
+
+The word 'radar' has 5 letters, with 'r' appearing twice and 'a' appearing twice. The number of distinct 5-letter arrangements (permutations) of the letters in 'radar' is:
+
+Number of arrangements = 5! / (2! × 2!) = 120 / 4 = 30
+
+So, there are 30 possible 5-letter combinations (not necessarily meaningful words) that can be formed from the letters in 'radar'.
+
+Another way to think about 5! is considering that you have 5 positions to fill. The first position can be filled by any of the 5 letters, the second position by any of the remaining 4 letters, and so on, leading to the calculation of permutations.
+
+```
+5 * 4 * 3 * 2 * 1 = 5! = 120
+-   -   -   -   -
+```
+
+However, since 'r' and 'a' are repeated, we divide by the factorial of the number of repetitions to avoid over-counting.
+So, we divide by 2! for 'r' and 2! for 'a', leading to the final answer of 30 distinct arrangements.
+
+## Question 11
+
+How many 5-letter palindrome words can be formed such that all letters in the palindrome are distinct except for the natural symmetry imposed by the palindrome property?
+
+### Answer
+
+- [x] 15,600
+- [ ] 17,576
+- [ ] 16,900
+- [ ] 30
+
+### Explanation
+
+To form a 5-letter palindrome, the structure is such that the first letter is the same as the fifth letter, and the second letter is the same as the fourth letter. The middle letter can be any distinct letter.
+
+The structure of a 5-letter palindrome is:  
+```
+A B C B A
+```
+Where:
+- A is the first and last letter,
+- B is the second and fourth letter,
+- C is the middle letter.
+- All letters must be distinct.
+- The first letter (A) can be any of the 26 letters in the alphabet.
+- The second letter (B) can be any of the remaining 25 letters.
+- The middle letter (C) can be any of the remaining 24 letters.
+
+So, the total number of distinct 5-letter palindromes can be calculated as follows:
+```
+Total palindromes = 26 (choices for A) * 25 (choices for B) * 24 (choices for C)
+                  = 26 * 25 * 24
+                  = 15,600
+```
+
+Therefore, the total number of distinct 5-letter palindromes that can be formed is 15,600.
