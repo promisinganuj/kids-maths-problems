@@ -239,3 +239,68 @@ So, the probability that the last ball is blue is:
 
 𝑃(last ball is blue) = Number of blue balls / Total number of balls = 2 / 15
 ​
+## Question 10
+
+How many 5-letter words (doesn't have to be meaningful) can be formed from the letters in the word 'radar'?
+
+### Answer
+
+- [ ] 15
+- [x] 30
+- [ ] 120
+- [ ] 5
+
+### Explanation
+
+The word 'radar' has 5 letters, with 'r' appearing twice and 'a' appearing twice. The number of distinct 5-letter arrangements (permutations) of the letters in 'radar' is:
+
+Number of arrangements = 5! / (2! × 2!) = 120 / 4 = 30
+
+So, there are 30 possible 5-letter combinations (not necessarily meaningful words) that can be formed from the letters in 'radar'.
+
+Another way to think about 5! is considering that you have 5 positions to fill. The first position can be filled by any of the 5 letters, the second position by any of the remaining 4 letters, and so on, leading to the calculation of permutations.
+
+```
+5 * 4 * 3 * 2 * 1 = 5! = 120
+-   -   -   -   -
+```
+
+However, since 'r' and 'a' are repeated, we divide by the factorial of the number of repetitions to avoid over-counting.
+So, we divide by 2! for 'r' and 2! for 'a', leading to the final answer of 30 distinct arrangements.
+
+## Question 11
+
+How many 5-letter palindrome words can be formed such that all letters in the palindrome are distinct except for the natural symmetry imposed by the palindrome property?
+
+### Answer
+
+- [x] 15,600
+- [ ] 17,576
+- [ ] 16,900
+- [ ] 30
+
+### Explanation
+
+To form a 5-letter palindrome, the structure is such that the first letter is the same as the fifth letter, and the second letter is the same as the fourth letter. The middle letter can be any distinct letter.
+
+The structure of a 5-letter palindrome is:  
+```
+A B C B A
+```
+Where:
+- A is the first and last letter,
+- B is the second and fourth letter,
+- C is the middle letter.
+- All letters must be distinct.
+- The first letter (A) can be any of the 26 letters in the alphabet.
+- The second letter (B) can be any of the remaining 25 letters.
+- The middle letter (C) can be any of the remaining 24 letters.
+
+So, the total number of distinct 5-letter palindromes can be calculated as follows:
+```
+Total palindromes = 26 (choices for A) * 25 (choices for B) * 24 (choices for C)
+                  = 26 * 25 * 24
+                  = 15,600
+```
+
+Therefore, the total number of distinct 5-letter palindromes that can be formed is 15,600.
