@@ -239,3 +239,24 @@ So, the probability that the last ball is blue is:
 
 𝑃(last ball is blue) = Number of blue balls / Total number of balls = 2 / 15
 ​
+
+## Question 10
+
+How many 5-letter arrangements can be formed using the letters A, B, C, D, and E (without repetition) if A must be in the 4th or 5th position?
+
+### Answer
+
+- [ ] 24
+- [x] 48
+- [ ] 60
+- [ ] 96
+
+### Explanation
+
+Letter A can be placed in 2 valid positions: 4th or 5th.
+
+After placing A, the remaining 4 letters (B, C, D, E) can be arranged in the remaining 4 positions in 4! ways:
+
+4! = 4 × 3 × 2 × 1 = 24
+
+So, total arrangements = 2 × 24 = 48.
