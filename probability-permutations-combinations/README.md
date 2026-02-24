@@ -1,6 +1,12 @@
 # Probability, Permutations and Combinations
 
-## Question 1
+## Difficulty Guide
+
+- `(*)` Foundational level (quick single-step reasoning)
+- `(**)` Intermediate level (2-step or mixed-concept reasoning)
+- `(***)` Challenge level (multi-step selective-school style problems)
+
+## Question 1 (*)
 
 A bag contains 12 blue marbles and 8 red marbles. If one marble is chosen at random, what is the probability that it will be a blue marble?
 
@@ -21,7 +27,7 @@ So the probability of choosing a blue marble is 3/5 or 0.6.
 
 Therefore, the probability that a marble chosen at random from the bag will be a blue marble is 0.6 or 60%.
 
-## Question 2
+## Question 2 (**)
 
 In a certain country, car number plates consist of three letters followed by three digits (e.g., ABC123). If a car number plate is chosen at random, what is the probability that the plate contains at least one letter 'A'?
 
@@ -46,7 +52,7 @@ P(at least one 'A') = 1 - 0.6575 = 0.3425 (approx.)
 
 So the probability that a car number plate chosen at random contains at least one letter 'A' is approximately 0.3425 or 34.25%.
 
-## Question 3
+## Question 3 (*)
 
 A bag contains 5 red marbles, 3 blue marbles, and 2 green marbles. If a marble is randomly selected from the bag, what is the probability of drawing a blue marble? Assume that each marble has an equal chance of being drawn and that once a marble is drawn, it is not replaced back into the bag.
 
@@ -68,16 +74,16 @@ Probability of drawing a blue marble = 3 / 10
 
 Therefore, the probability of drawing a blue marble from the bag is 3/10 or 0.3 (or 30%).
 
-## Question 4
+## Question 4 (*)
 
 A fair six-sided die is rolled. What is the probability of rolling an even number?
 
 ### Answer
 
 - [x] 1 / 2
-- [x] 2 / 3
-- [x] 4 / 6
-- [x] 1 / 3
+- [ ] 2 / 3
+- [ ] 5 / 6
+- [ ] 1 / 3
 
 ### Explanation
 
@@ -91,7 +97,7 @@ Probability of rolling an even number = 3 / 6
 
 Therefore, the probability of rolling an even number on a fair six-sided die is 3/6 or 1/2, which can also be written as 0.5 or 50%.
 
-## Question 5 (*)
+## Question 5 (**)
 
 A bag contains 4 red balls, 5 blue balls, and 3 green balls. If two balls are randomly drawn from the bag without replacement, what is the probability of drawing two blue balls in succession?
 
@@ -117,7 +123,7 @@ Probability of drawing two blue balls in succession = (5/12) * (4/11)
 
 Therefore, the probability of drawing two blue balls in succession is (5/12) * (4/11) = 20/132 = 5/33, which is approximately 0.152 or 15.2%.
 
-## Question 6 (*)
+## Question 6 (**)
 
 A fair six-sided die is rolled. What is the probability of getting either an even number or a number which is divisible by 3?
 
@@ -144,11 +150,11 @@ Probability of getting either an even number or a number divisible by 3 = 4 / 6
 
 Therefore, the probability of getting either an even number or a number divisible by 3 when rolling a fair six-sided die is 4/6, which can be simplified to 2/3 or approximately 0.667 or 66.7%.
 
-The elimination method can also be helpful here. Note that option 1 (1/2) and option 3 (3/6) are essentially the same. But two answers can't be correct. So, the correct answer is either option 2 or option 4. With this reasoning, the chances of getting to the correct answer has increased from 25% (1/4) to 50% (1/2), without even solving the problem.
+The elimination method can also be helpful here. Note that option 1 (1/2) and option 3 (3/6) are essentially the same. But two answers cannot be correct. So, the correct answer is either option 2 or option 4. With this reasoning, the chance of getting to the correct answer increases from 25% (1/4) to 50% (1/2), without even solving the problem.
 
-## Question 7 (*)
+## Question 7 (**)
 
-What's the probability of getting at-least two heads in 3 coin flips? What's the probability of getting exactly two heads. Assume that it's a fair coin.
+What is the probability of getting at least two heads in 3 coin flips? What is the probability of getting exactly two heads? Assume that it is a fair coin.
 
 ### Answer
 
@@ -188,9 +194,9 @@ Now, for exactly two heads, there are only 3 favorable outcomes: HHT, HTH, THH.
 Probability of getting exactly two heads = Number of favorable outcomes / Total number of possible outcomes  
 Probability of getting exactly two heads = 3 / 8
 
-Therefore, the probability of getting at least two heads in 3 coin flips is 3/8, which can be simplified to 0.375 or 37.5%.
+Therefore, the probability of getting exactly two heads in 3 coin flips is 3/8, which can be simplified to 0.375 or 37.5%.
 
-## Question 8 (*)
+## Question 8 (**)
 
 There are 15 balls in the box that consist of 6 red balls, 3 green balls, 4 yellow balls and 2 blue balls.  
 A student took two balls from the box of 15 balls. What was the probability that the student picked a red ball and a green ball?
@@ -206,7 +212,7 @@ A student took two balls from the box of 15 balls. What was the probability that
 
 To solve this problem, start by finding the total possible outcomes.
 
-Total number of possible outcomes = Total ways of choosing 2 balls from 15 = (15 * 14) / 2 (do you understand why) = 105.
+Total number of possible outcomes = total ways of choosing 2 balls from 15 = (15 * 14) / 2 = 105.
 
 Now let's find the favorable outcomes.
 
@@ -217,10 +223,10 @@ Favorable outcomes = 6 * 3 = 18
 
 So, the probability of picking 1 red and 1 green ball = 18 / 105 = 6 / 35.
 
-## Question 9
+## Question 9 (**)
 
 There are 15 balls in the box that consist of 6 red balls, 3 green balls, 4 yellow balls and 2 blue balls.  
-A group of student took balls from the box one by one. What was the probability that the last ball was blue?
+A group of students took balls from the box one by one. What was the probability that the last ball was blue?
 
 ### Answer
 
@@ -240,9 +246,9 @@ So, the probability that the last ball is blue is:
 𝑃(last ball is blue) = Number of blue balls / Total number of balls = 2 / 15
 ​
 
-## Question 10
+## Question 10 (**)
 
-How many 5-letter arrangements can be formed using the letters A, B, C, D, and E (without repetition) if A must be in the 4th or 5th position?
+How many 5-letter arrangements can be formed using the letters A, B, C, D, and E (without repetition) if A is in the 4th or 5th position?
 
 ### Answer
 
@@ -261,9 +267,9 @@ After placing A, the remaining 4 letters (B, C, D, E) can be arranged in the rem
 
 So, total arrangements = 2 × 24 = 48.
 
-## Question 11
+## Question 11 (***)
 
-How many 5-letter words (doesn't have to be meaningful) can be formed from the letters in the word 'radar'?
+How many 5-letter words (need not be meaningful) can be formed from the letters in the word 'radar'?
 
 ### Answer
 
@@ -290,7 +296,7 @@ Another way to think about 5! is considering that you have 5 positions to fill. 
 However, since 'r' and 'a' are repeated, we divide by the factorial of the number of repetitions to avoid over-counting.
 So, we divide by 2! for 'r' and 2! for 'a', leading to the final answer of 30 distinct arrangements.
 
-## Question 12
+## Question 12 (***)
 
 How many 5-letter palindrome words can be formed such that all letters in the palindrome are distinct except for the natural symmetry imposed by the palindrome property?
 
