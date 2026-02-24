@@ -1,6 +1,12 @@
 # Chicken and Goat Problems
 
-## Question 1
+## Difficulty Guide
+
+- `(*)` Foundational level (quick single-step reasoning)
+- `(**)` Intermediate level (2-step or mixed-concept reasoning)
+- `(***)` Challenge level (multi-step selective-school style problems)
+
+## Question 1 (*)
 
 A farmer has some chickens and some goats. Together there are 116 heads and 282 legs. How many chickens and goats does the farmer have?
 
@@ -15,7 +21,7 @@ A farmer has some chickens and some goats. Together there are 116 heads and 282 
 
 Suppose there are only chickens. With 116 heads, there would be 116*2=232 legs. The 282-232=50 additional legs would have come from 50/2=25 goats. It implies that there are 116-25=91 chickens.
 
-## Question 2
+## Question 2 (**)
 
 There are 25 questions in a language exam. 4 marks are awarded for each correct answer and 2 marks are deducted for each wrong answer. If Sam scored 76 marks in the exam, how many questions did he get correct?
 ### Answer
@@ -41,9 +47,9 @@ We can cross-verify the answer. For 21 correct answers:
 
 Total Score = 21 * 4 - (4 * 2) = 84 - 8 = 76.
 
-## Question 3
+## Question 3 (***)
 
-There are 40 questions in a science quiz. The first 30 questions are worth 4 marks and the next 10 questions are worth 7 marks each. There is no negative marking i.e., no marks are deducted for each wrong answer. Pete scored a total of 164 marks in the quiz. How many of the first 30 questions and how many of the last 10 questions does he answer correct?
+There are 40 questions in a science quiz. The first 30 questions are worth 4 marks and the next 10 questions are worth 7 marks each. There is no negative marking, i.e., no marks are deducted for each wrong answer. Pete scored a total of 164 marks in the quiz. How many of the first 30 questions and how many of the last 10 questions does he answer correctly?
 
 ### Answer
 
@@ -58,7 +64,7 @@ The maximum possible score that can be earned = (30 * 4) + (10 * 7) = 120 + 70 =
 
 So, the marks lost due to the wrong answers = 190 - 164 = 26.
 
-These 26 lost marks are due to some 3 marks questions and some 5 marks questions which are wrongly answered. Here, we have to do try the different multiples of 4 and 7 which can sum up to 26.
+These 26 lost marks are due to some 4-mark questions and some 7-mark questions being answered incorrectly. Here, we can try different multiples of 4 and 7 that sum to 26.
 
 ```
 (7 * 4) + (4 * 0) = Not possible (28 > 26)
@@ -70,11 +76,11 @@ These 26 lost marks are due to some 3 marks questions and some 5 marks questions
 
 So, Pete must have got 3 questions wrong from the first 30 questions (4 marks each) and 2 questions wrong from last 10 questions (7 marks each).
 
-Therefore, Pete answered 27 questions correct from first 30 questions (4 marks each) and 8 questions correct from last 10 questions (7 marks each).
+Therefore, Pete answered 27 questions correctly from the first 30 questions (4 marks each) and 8 questions correctly from the last 10 questions (7 marks each).
 
 This can be cross-verified. Total marks earned = (27 * 4) + ( 8 * 7) = 108 + 56 = 164.
 
-## Question 4
+## Question 4 (**)
 
 There are 20 goats more than chickens in a country farm. Given that there are 182 legs altogether, how many goats are there in the farm?
 
