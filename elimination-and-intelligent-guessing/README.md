@@ -32,7 +32,7 @@ This problem is also part of [chicken-and-goat](../chicken-and-goat/README.md) p
 
 ## Question 3
 
-What is the value of $10\% + \sqrt{49\%}$?
+What is the value of 10% + √(49%)?
 
 ### Answer
 
@@ -43,10 +43,8 @@ What is the value of $10\% + \sqrt{49\%}$?
 
 ### Explanation
 
-$10\% = 0.10$.
+10% = 0.10.
 
-$49\% = 0.49$, so $\sqrt{49\%} = \sqrt{0.49} = 0.7 = 70\%$.
+√(49%) = √(0.49) = 0.7 = 70%.
 
-Therefore,
-
-$0.10 + 0.70 = 0.80 = 80\%$.
+Therefore, 10% + √(49%) = 10% + 70% = 80%.
