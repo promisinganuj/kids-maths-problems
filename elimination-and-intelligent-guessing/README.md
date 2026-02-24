@@ -29,3 +29,24 @@ A farmer has some chickens and some goats. Together there are 116 heads and 282 
 ### Explanation
 
 This problem is also part of [chicken-and-goat](../chicken-and-goat/README.md) problem. But this can be easily solved by elimination. The number of heads is 116. So, the sum of chickens and goats in the answers must be 116. And only the last option satisfies this condition.
+
+## Question 3
+
+What is the value of $10\% + \sqrt{49\%}$?
+
+### Answer
+
+- [ ] 60%
+- [ ] 70%
+- [x] 80%
+- [ ] 90%
+
+### Explanation
+
+$10\% = 0.10$.
+
+$49\% = 0.49$, so $\sqrt{49\%} = \sqrt{0.49} = 0.7 = 70\%$.
+
+Therefore,
+
+$0.10 + 0.70 = 0.80 = 80\%$.

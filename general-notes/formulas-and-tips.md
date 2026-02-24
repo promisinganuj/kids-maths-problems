@@ -14,6 +14,22 @@ The number of diagonals in a polygon with $n$ sides | $n*(n-3)/2$
 The sum of the interior angles of a polygon with $n$ sides | $(n-2)*180$
 The sum of the exterior angles of a polygon with $n$ sides | $360$
 
+## Permutation and Combination Formulas
+
+Description | Formula
+--- | --- |
+Factorial | $n! = n*(n-1)*(n-2)*...*2*1$
+Permutation of $k$ objects from $n$ distinct objects (order matters) | $nPk = n!/(n-k)!$
+Combination of $k$ objects from $n$ distinct objects (order does not matter) | $nCk = n!/(k!*(n-k)!)$
+Permutation with repetition allowed (length $k$ from $n$ choices) | $n^k$
+Circular arrangement of $n$ distinct objects (clockwise/anticlockwise considered different) | $(n-1)!$
+Circular arrangement where mirror images are considered same (necklace type) | $(n-1)!/2$
+
+### Notes
+- Use $nPk$ when position/order is important.
+- Use $nCk$ when only selection matters, not order.
+- For circular arrangements around a table, one fixed reference position removes rotational duplicates, so use $(n-1)!$.
+
 ## Area & Perimeter Formulas
 
 Shape | Attributes | Area | Perimeter

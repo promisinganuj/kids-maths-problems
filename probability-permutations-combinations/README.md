@@ -239,7 +239,29 @@ So, the probability that the last ball is blue is:
 
 𝑃(last ball is blue) = Number of blue balls / Total number of balls = 2 / 15
 ​
+
 ## Question 10
+
+How many 5-letter arrangements can be formed using the letters A, B, C, D, and E (without repetition) if A must be in the 4th or 5th position?
+
+### Answer
+
+- [ ] 24
+- [x] 48
+- [ ] 60
+- [ ] 96
+
+### Explanation
+
+Letter A can be placed in 2 valid positions: 4th or 5th.
+
+After placing A, the remaining 4 letters (B, C, D, E) can be arranged in the remaining 4 positions in 4! ways:
+
+4! = 4 × 3 × 2 × 1 = 24
+
+So, total arrangements = 2 × 24 = 48.
+
+## Question 11
 
 How many 5-letter words (doesn't have to be meaningful) can be formed from the letters in the word 'radar'?
 
@@ -268,7 +290,7 @@ Another way to think about 5! is considering that you have 5 positions to fill. 
 However, since 'r' and 'a' are repeated, we divide by the factorial of the number of repetitions to avoid over-counting.
 So, we divide by 2! for 'r' and 2! for 'a', leading to the final answer of 30 distinct arrangements.
 
-## Question 11
+## Question 12
 
 How many 5-letter palindrome words can be formed such that all letters in the palindrome are distinct except for the natural symmetry imposed by the palindrome property?
 
