@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selective Exam Maths Revision</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --card: #1e2336;
+    --border: #2a3050;
+    --accent: #6c8fff;
+    --accent2: #ff6b6b;
+    --accent3: #43d9a2;
+    --accent4: #ffd166;
+    --text: #e8ecf5;
+    --muted: #7a84a3;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Space Grotesk', sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  header {
+    background: linear-gradient(135deg, #1a1f35 0%, #0f1117 60%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 24px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: 50%; transform: translateX(-50%);
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(108,143,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .exam-badge {
+    display: inline-block;
+    background: rgba(108,143,255,0.15);
+    border: 1px solid rgba(108,143,255,0.35);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 6px;
+  }
+  .countdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    background: rgba(255,107,107,0.12);
+    border: 1px solid rgba(255,107,107,0.3);
+    color: var(--accent2);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 20px 20px 0;
+    justify-content: center;
+  }
+  .filter-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .progress-bar {
+    margin: 16px 20px 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .prog-track {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .prog-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+  .prog-text { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+  .questions-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .q-card:hover { border-color: #3a4570; }
+  .q-card.answered-correct { border-color: rgba(67,217,162,0.4); }
+  .q-card.answered-wrong { border-color: rgba(255,107,107,0.35); }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 18px 12px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .q-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(108,143,255,0.1);
+    border: 1px solid rgba(108,143,255,0.2);
+    border-radius: 6px;
+    padding: 3px 8px;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .q-meta { flex: 1; }
+  .q-topic {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+  .q-text {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .q-difficulty {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-top: 2px;
+    align-self: flex-start;
+  }
+  .diff-medium { background: rgba(255,209,102,0.15); color: var(--accent4); }
+  .diff-hard { background: rgba(255,107,107,0.15); color: var(--accent2); }
+  .diff-easy { background: rgba(67,217,162,0.12); color: var(--accent3); }
+
+  .q-options {
+    padding: 0 18px 6px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .opt-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-family: var(--sans);
+    font-size: 13px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .opt-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    min-width: 16px;
+  }
+  .opt-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .opt-btn.correct { background: rgba(67,217,162,0.12); border-color: var(--accent3); color: var(--accent3); }
+  .opt-btn.wrong { background: rgba(255,107,107,0.1); border-color: var(--accent2); color: var(--accent2); }
+  .opt-btn:disabled { cursor: default; }
+
+  .q-reveal {
+    padding: 0 18px 16px;
+    display: none;
+  }
+  .q-reveal.visible { display: block; }
+
+  .strategy-box {
+    background: rgba(108,143,255,0.07);
+    border: 1px solid rgba(108,143,255,0.2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 10px;
+  }
+  .strategy-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .strategy-title::before {
+    content: '⚡';
+    font-size: 12px;
+  }
+  .strategy-text {
+    font-size: 13.5px;
+    color: #c4ccdf;
+    line-height: 1.65;
+  }
+  .strategy-text strong { color: var(--accent4); font-weight: 600; }
+  .strategy-text code {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: rgba(255,255,255,0.07);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--accent3);
+  }
+
+  .answer-line {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .answer-line .ans-val {
+    font-family: var(--mono);
+    font-weight: 600;
+    color: var(--accent3);
+    font-size: 13px;
+  }
+
+  .reset-btn {
+    display: block;
+    margin: 10px auto 0;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  .topic-surds { color: #a78bfa; }
+  .topic-algebra { color: #60a5fa; }
+  .topic-graphs { color: #34d399; }
+  .topic-probability { color: #f87171; }
+  .topic-velocity { color: #fb923c; }
+  .topic-number { color: #facc15; }
+  .topic-geometry { color: #e879f9; }
+  .topic-ratios { color: #38bdf8; }
+
+  @media (max-width: 500px) {
+    .q-options { grid-template-columns: 1fr; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="exam-badge">Victoria Selective Entry</div>
+  <h1>Maths Revision Blitz</h1>
+  <div class="subtitle">Tricky concepts · Smart strategies · Exam-ready</div>
+  <div class="countdown">📅 Exam next Saturday — keep going!</div>
+</header>
+
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" onclick="filterTopic('all', this)">All Topics</button>
+  <button class="filter-btn" onclick="filterTopic('surds', this)">Surds</button>
+  <button class="filter-btn" onclick="filterTopic('algebra', this)">Algebra</button>
+  <button class="filter-btn" onclick="filterTopic('graphs', this)">Graphs & Parabola</button>
+  <button class="filter-btn" onclick="filterTopic('probability', this)">Probability</button>
+  <button class="filter-btn" onclick="filterTopic('velocity', this)">Velocity & Time</button>
+  <button class="filter-btn" onclick="filterTopic('number', this)">Number</button>
+  <button class="filter-btn" onclick="filterTopic('geometry', this)">Geometry</button>
+  <button class="filter-btn" onclick="filterTopic('ratios', this)">Ratios & Rates</button>
+</div>
+
+<div class="progress-bar">
+  <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  <div class="prog-text" id="progText">0 / 20 answered</div>
+</div>
+
+<div class="questions-grid" id="questionsGrid"></div>
+
+<script>
+const questions = [
+  {
+    id: 1, topic: 'surds', topicLabel: 'Surds',
+    difficulty: 'medium',
+    text: 'Simplify: √75 − 2√12 + √27',
+    options: ['2√3', '3√3', '4√3', '√3'],
+    answer: 2,
+    strategy: `<strong>Break every term into a multiple of √3 first.</strong> √75 = √(25×3) = 5√3. √12 = √(4×3) = 2√3, so 2√12 = 4√3. √27 = √(9×3) = 3√3. Now collect: 5√3 − 4√3 + 3√3 = <code>4√3</code>. Quick check: √3 ≈ 1.73, so 4√3 ≈ 6.93. Estimate the original: √75 ≈ 8.66, 2√12 ≈ 6.93, √27 ≈ 5.20 → 8.66 − 6.93 + 5.20 ≈ 6.93 ✓. Only Option C matches.`
+  },
+  {
+    id: 2, topic: 'surds', topicLabel: 'Surds',
+    difficulty: 'hard',
+    text: 'Rationalise the denominator: 6 / (√5 + 1)',
+    options: ['6(√5 − 1) / 4', '3(√5 − 1) / 2', '3(√5 + 1) / 2', '(√5 − 1) / 2'],
+    answer: 1,
+    strategy: `<strong>Rationalising = multiply top and bottom by the conjugate.</strong> The conjugate of (√5 + 1) is (√5 − 1). Denominator: (√5+1)(√5−1) = 5 − 1 = 4. Numerator: 6(√5 − 1). So: 6(√5−1)/4 = <code>3(√5−1)/2</code>. Option A looks similar but isn't simplified. Option B is the fully simplified form. <strong>Estimate check:</strong> √5 ≈ 2.236, so 3(2.236−1)/2 = 3×1.236/2 ≈ 1.854. Original: 6/(2.236+1) ≈ 1.854 ✓.`
+  },
+  {
+    id: 3, topic: 'algebra', topicLabel: 'Algebra',
+    difficulty: 'medium',
+    text: 'If x² − 5x + 6 = 0, which values of x satisfy the equation?',
+    options: ['x = 2, x = 3', 'x = −2, x = −3', 'x = 1, x = 6', 'x = 2, x = −3'],
+    answer: 0,
+    strategy: `<strong>Factorising shortcut: find two numbers that multiply to +6 and add to −5.</strong> That's −2 and −3. So (x−2)(x−3) = 0, giving x = 2 or x = 3. Quick check: 2²−5×2+6 = 4−10+6 = 0 ✓. <strong>Educated guess tip:</strong> product is positive (+6) and sum is negative (−5), so both numbers are negative. That means both roots are positive (we subtract them). Instantly eliminate options B and D which have negative roots.`
+  },
+  {
+    id: 4, topic: 'algebra', topicLabel: 'Algebra',
+    difficulty: 'hard',
+    text: 'The sum of three consecutive odd numbers is 51. What is the largest?',
+    options: ['15', '17', '19', '21'],
+    answer: 2,
+    strategy: `<strong>Don't write equations — just divide and adjust.</strong> Three equal numbers summing to 51 → average = 17. Consecutive odd numbers are 15, 17, 19. Largest = <code>19</code>. Exam trick: the middle number always equals the average in consecutive sequences. Quick mental: 51 ÷ 3 = 17 → go one up = 19.`
+  },
+  {
+    id: 5, topic: 'graphs', topicLabel: 'Graphs & Parabola',
+    difficulty: 'medium',
+    text: 'The parabola y = (x − 3)² + 2 has its vertex at:',
+    options: ['(3, 2)', '(−3, 2)', '(3, −2)', '(2, 3)'],
+    answer: 0,
+    strategy: `<strong>Vertex form y = (x − h)² + k → vertex is always (h, k).</strong> Watch the sign trap: (x − 3) means h = +3, not −3. K = 2. Vertex = (3, 2). <strong>Educated guess:</strong> eliminate options where the sign of h is wrong. If you see (x − 3), h is positive 3. This catches out most wrong answers instantly.`
+  },
+  {
+    id: 6, topic: 'graphs', topicLabel: 'Graphs & Parabola',
+    difficulty: 'hard',
+    text: 'A parabola has x-intercepts at x = −1 and x = 5. What is the x-coordinate of the vertex?',
+    options: ['x = 2', 'x = 3', 'x = 4', 'x = 1'],
+    answer: 0,
+    strategy: `<strong>The vertex always sits exactly halfway between the x-intercepts.</strong> Midpoint = (−1 + 5) / 2 = 4/2 = <code>2</code>. No equation needed. This is one of the fastest tricks in parabola questions — just average the roots.`
+  },
+  {
+    id: 7, topic: 'graphs', topicLabel: 'Graphs & Parabola',
+    difficulty: 'medium',
+    text: 'Which of these is the equation of a line with gradient −2 passing through (0, 5)?',
+    options: ['y = 5x − 2', 'y = −2x + 5', 'y = 2x − 5', 'y = −2x − 5'],
+    answer: 1,
+    strategy: `<strong>y = mx + c: gradient goes with x, c is the y-intercept.</strong> m = −2, c = 5 (since it passes through (0, 5)). Immediately: y = −2x + 5. <strong>Trap:</strong> Option A swaps the numbers. Option D has wrong sign for c. This type is almost always one-step if you remember the formula.`
+  },
+  {
+    id: 8, topic: 'probability', topicLabel: 'Probability',
+    difficulty: 'medium',
+    text: 'A bag has 4 red and 6 blue marbles. Two are drawn without replacement. What is the probability both are red?',
+    options: ['2/15', '4/25', '1/6', '2/25'],
+    answer: 0,
+    strategy: `<strong>Without replacement = fractions change after each draw.</strong> P(1st red) = 4/10. P(2nd red | 1st was red) = 3/9. Multiply: 4/10 × 3/9 = 12/90 = <code>2/15</code>. <strong>Educated guess tip:</strong> without replacement always gives a smaller probability than with replacement (4/10 × 4/10 = 4/25). Option A (2/15 ≈ 0.133) < Option B (4/25 = 0.16). Pick the smaller one.`
+  },
+  {
+    id: 9, topic: 'probability', topicLabel: 'Probability',
+    difficulty: 'hard',
+    text: 'In a class of 30, 18 play sport and 12 read books. 5 do both. How many do neither?',
+    options: ['5', '3', '7', '0'],
+    answer: 0,
+    strategy: `<strong>Use the inclusion-exclusion formula: |A ∪ B| = |A| + |B| − |A ∩ B|.</strong> Sport OR books = 18 + 12 − 5 = 25. Neither = 30 − 25 = <code>5</code>. Draw a quick Venn in your head: sport-only = 13, both = 5, books-only = 7. Total accounted = 13+5+7 = 25. 30−25 = 5.`
+  },
+  {
+    id: 10, topic: 'probability', topicLabel: 'Probability',
+    difficulty: 'easy',
+    text: 'A fair die is rolled twice. What is the probability of getting a 6 on both rolls?',
+    options: ['1/36', '1/12', '1/6', '2/36 simplified to 1/18'],
+    answer: 0,
+    strategy: `<strong>Independent events: multiply the probabilities.</strong> P(6) × P(6) = 1/6 × 1/6 = 1/36. These events don't affect each other, so it's always just multiply. <strong>Trap:</strong> Option D looks like a simplification but 2/36 = 1/18, which is wrong — that would be the chance on two different specified outcomes.`
+  },
+  {
+    id: 11, topic: 'velocity', topicLabel: 'Velocity & Time',
+    difficulty: 'medium',
+    text: 'A car travels 240 km at 80 km/h. How long does the journey take?',
+    options: ['2.5 hours', '3 hours', '2 hours', '4 hours'],
+    answer: 1,
+    strategy: `<strong>Time = Distance ÷ Speed. Always.</strong> 240 ÷ 80 = 3 hours. <strong>Educated guess:</strong> if speed is 80 and distance is 240, ask "how many 80s in 240?" — exactly 3. No calculator needed.`
+  },
+  {
+    id: 12, topic: 'velocity', topicLabel: 'Velocity & Time',
+    difficulty: 'hard',
+    text: 'Train A leaves at 9am at 60 km/h. Train B leaves at 10am in the same direction at 90 km/h. At what time does B overtake A?',
+    options: ['12:00 pm', '11:00 am', '1:00 pm', '12:30 pm'],
+    answer: 0,
+    strategy: `<strong>Head-start trick: find the head-start gap, then close it with the speed difference.</strong> By 10am, Train A has gone 60 km. B gains 30 km/h on A (90−60). Time to close 60 km gap = 60/30 = 2 hours after 10am = <code>12:00 pm</code>. Classic exam question — always subtract speeds for the closing rate.`
+  },
+  {
+    id: 13, topic: 'velocity', topicLabel: 'Velocity & Time',
+    difficulty: 'medium',
+    text: 'A cyclist goes uphill at 10 km/h and downhill at 30 km/h over the same distance. What is the average speed for the whole trip?',
+    options: ['20 km/h', '15 km/h', '25 km/h', '18 km/h'],
+    answer: 1,
+    strategy: `<strong>TRAP: Do NOT average the speeds!</strong> Average speed = Total distance ÷ Total time. Say distance = 30 km each way. Up: 3 hrs. Down: 1 hr. Total = 60 km in 4 hrs = <code>15 km/h</code>. Formula shortcut: 2ab/(a+b) = 2×10×30/40 = 15. <strong>The midpoint (20 km/h) is always the trap answer here — ignore it.</strong>`
+  },
+  {
+    id: 14, topic: 'number', topicLabel: 'Number',
+    difficulty: 'medium',
+    text: 'What is the highest common factor (HCF) of 84 and 126?',
+    options: ['21', '42', '14', '63'],
+    answer: 1,
+    strategy: `<strong>Use the "factor pairs" or Euclidean method mentally.</strong> 126 = 84 × 1 + 42. Then 84 = 42 × 2 + 0. So HCF = 42. Or: 84 = 4×21 = 2²×3×7; 126 = 2×63 = 2×3²×7. Common: 2×3×7 = <code>42</code>. Quick check: does 42 divide both? 84/42=2 ✓, 126/42=3 ✓.`
+  },
+  {
+    id: 15, topic: 'number', topicLabel: 'Number',
+    difficulty: 'hard',
+    text: 'What is the smallest number that is divisible by both 8 and 12 but leaves a remainder of 3 when divided by 5?',
+    options: ['24', '48', '72', '36'],
+    answer: 1,
+    strategy: `<strong>Two-step approach: find LCM first, then check the remainder condition.</strong> LCM(8, 12): 8 = 2³, 12 = 2²×3. LCM = 2³×3 = 24. Multiples of 24: 24, 48, 72... Now check "rem 3 when ÷ 5": 24 ÷ 5 = 4 rem 4 ✗. 48 ÷ 5 = 9 rem 3 ✓. Answer = <code>48</code>. <strong>Shortcut:</strong> LCM of two numbers = (a × b) ÷ HCF(a,b) = (8×12) ÷ 4 = 24. Then just walk up multiples of 24 until one leaves rem 3 mod 5.`
+  },
+  {
+    id: 16, topic: 'number', topicLabel: 'Number',
+    difficulty: 'easy',
+    text: '15% of what number is 45?',
+    options: ['300', '225', '270', '150'],
+    answer: 0,
+    strategy: `<strong>"15% of X = 45" → X = 45 ÷ 0.15 = 45 × (100/15).</strong> Simplify: 45 × 20/3 = 15 × 20 = 300. Shortcut: 10% of 300 = 30, 5% = 15, total = 45 ✓. <strong>Always verify backwards:</strong> 15% of your answer should give 45.`
+  },
+  {
+    id: 17, topic: 'geometry', topicLabel: 'Geometry',
+    difficulty: 'medium',
+    text: 'A sector has radius 6 cm and angle 120°. What is its area? (Use π ≈ 3.14)',
+    options: ['37.7 cm²', '12.6 cm²', '75.4 cm²', '18.8 cm²'],
+    answer: 0,
+    strategy: `<strong>Sector area = (angle/360) × π r².</strong> = (120/360) × 3.14 × 36 = (1/3) × 113.04 = <code>37.68 ≈ 37.7 cm²</code>. <strong>Shortcut:</strong> 120° is exactly 1/3 of a full circle. So just find full circle area (3.14×36 = 113) and divide by 3. Much faster than memorising the formula!`
+  },
+  {
+    id: 18, topic: 'geometry', topicLabel: 'Geometry',
+    difficulty: 'hard',
+    text: 'In triangle ABC, angle A = 50°, angle B = 70°. What is the exterior angle at C?',
+    options: ['120°', '60°', '130°', '110°'],
+    answer: 0,
+    strategy: `<strong>Exterior angle = sum of the two non-adjacent interior angles.</strong> Ext C = A + B = 50 + 70 = <code>120°</code>. Don't find angle C first (which = 60°) and then subtract from 180. Save a step — the exterior angle theorem gives you the answer in one line.`
+  },
+  {
+    id: 19, topic: 'ratios', topicLabel: 'Ratios & Rates',
+    difficulty: 'medium',
+    text: '$450 is split among 3 people in the ratio 2:3:4. How much does the person with the largest share get?',
+    options: ['$200', '$150', '$100', '$180'],
+    answer: 0,
+    strategy: `<strong>Total parts = 2+3+4 = 9. Each part = 450/9 = $50.</strong> Largest share (4 parts) = 4×50 = <code>$200</code>. <strong>Shortcut:</strong> if you can quickly find the value of 1 part, multiply by the biggest ratio number. No need to find all three shares.`
+  },
+  {
+    id: 20, topic: 'ratios', topicLabel: 'Ratios & Rates',
+    difficulty: 'hard',
+    text: 'A tap fills a tank in 4 hours, another drains it in 6 hours. If both run together starting when the tank is empty, how long to fill?',
+    options: ['12 hours', '10 hours', '2.4 hours', '3 hours'],
+    answer: 0,
+    strategy: `<strong>Work rates: filling rate = 1/4, draining rate = 1/6. Net rate = 1/4 − 1/6.</strong> Common denominator: 3/12 − 2/12 = 1/12 per hour. Time = 12 hours. <strong>Tip to avoid errors:</strong> filling is positive, draining is negative. If the draining rate were bigger, the tank never fills. Always check which direction wins.`
+  }
+];
+
+let answered = {};
+
+function getTopicClass(t) {
+  const map = { surds:'topic-surds', algebra:'topic-algebra', graphs:'topic-graphs', probability:'topic-probability', velocity:'topic-velocity', number:'topic-number', geometry:'topic-geometry', ratios:'topic-ratios' };
+  return map[t] || '';
+}
+
+function getDiffLabel(d) {
+  const map = { easy:'diff-easy', medium:'diff-medium', hard:'diff-hard' };
+  return map[d] || '';
+}
+
+function updateProgress() {
+  const total = document.querySelectorAll('.q-card').length;
+  const done = Object.keys(answered).length;
+  const pct = total ? (done/total*100) : 0;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progText').textContent = `${done} / ${total} answered`;
+}
+
+function selectOption(qid, idx) {
+  if (answered[qid] !== undefined) return;
+  answered[qid] = idx;
+  const q = questions.find(x => x.id === qid);
+  const card = document.getElementById('qcard-' + qid);
+  const opts = card.querySelectorAll('.opt-btn');
+  opts.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.answer) btn.classList.add('correct');
+    else if (i === idx) btn.classList.add('wrong');
+  });
+  card.classList.add(idx === q.answer ? 'answered-correct' : 'answered-wrong');
+  const reveal = document.getElementById('reveal-' + qid);
+  reveal.classList.add('visible');
+  updateProgress();
+}
+
+function resetCard(qid) {
+  delete answered[qid];
+  const card = document.getElementById('qcard-' + qid);
+  card.classList.remove('answered-correct', 'answered-wrong');
+  const opts = card.querySelectorAll('.opt-btn');
+  opts.forEach(btn => {
+    btn.disabled = false;
+    btn.classList.remove('correct', 'wrong');
+  });
+  document.getElementById('reveal-' + qid).classList.remove('visible');
+  updateProgress();
+}
+
+function renderQuestions(filter) {
+  const grid = document.getElementById('questionsGrid');
+  const filtered = filter === 'all' ? questions : questions.filter(q => q.topic === filter);
+  grid.innerHTML = filtered.map(q => `
+    <div class="q-card" id="qcard-${q.id}" data-topic="${q.topic}">
+      <div class="q-header">
+        <div class="q-num">Q${q.id}</div>
+        <div class="q-meta">
+          <div class="q-topic ${getTopicClass(q.topic)}">${q.topicLabel}</div>
+          <div class="q-text">${q.text}</div>
+        </div>
+        <div class="q-difficulty ${getDiffLabel(q.difficulty)}">${q.difficulty.toUpperCase()}</div>
+      </div>
+      <div class="q-options">
+        ${q.options.map((opt, i) => `
+          <button class="opt-btn" onclick="selectOption(${q.id}, ${i})">
+            <span class="opt-label">${String.fromCharCode(65+i)}</span>
+            ${opt}
+          </button>
+        `).join('')}
+      </div>
+      <div class="q-reveal" id="reveal-${q.id}">
+        <div class="strategy-box">
+          <div class="strategy-title">Smart Strategy</div>
+          <div class="strategy-text">${q.strategy}</div>
+        </div>
+        <div class="answer-line">
+          ✓ Correct answer: <span class="ans-val">${q.options[q.answer]}</span>
+        </div>
+        <button class="reset-btn" onclick="resetCard(${q.id})">↺ Try again</button>
+      </div>
+    </div>
+  `).join('');
+
+  // Restore answered state
+  Object.entries(answered).forEach(([qid, idx]) => {
+    const q = questions.find(x => x.id == qid);
+    if (!q) return;
+    const card = document.getElementById('qcard-' + qid);
+    if (!card) return;
+    const opts = card.querySelectorAll('.opt-btn');
+    opts.forEach((btn, i) => {
+      btn.disabled = true;
+      if (i === q.answer) btn.classList.add('correct');
+      else if (i == idx) btn.classList.add('wrong');
+    });
+    card.classList.add(idx == q.answer ? 'answered-correct' : 'answered-wrong');
+    document.getElementById('reveal-' + qid).classList.add('visible');
+  });
+
+  updateProgress();
+}
+
+function filterTopic(topic, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderQuestions(topic);
+}
+
+renderQuestions('all');
+</script>
+</body>
+</html>

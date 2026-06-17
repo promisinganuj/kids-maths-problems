@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selective Maths — Advanced Set 2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d1117; --surface: #161b27; --card: #1c2235;
+    --border: #252d45; --accent: #7c9ef8; --accent2: #ff6b6b;
+    --accent3: #3ddba8; --accent4: #ffc96b; --accent5: #c084fc;
+    --text: #e2e8f5; --muted: #6b748f;
+    --mono: 'IBM Plex Mono', monospace; --sans: 'Space Grotesk', sans-serif;
+  }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; padding-bottom: 60px; }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(160deg, #141929 0%, #0d1117 70%);
+    border-bottom: 1px solid var(--border);
+    padding: 30px 24px 22px; text-align: center; position: relative; overflow: hidden;
+  }
+  header::before {
+    content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 300px;
+    background: radial-gradient(ellipse, rgba(124,158,248,0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-block; background: rgba(124,158,248,0.12);
+    border: 1px solid rgba(124,158,248,0.3); color: var(--accent);
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    padding: 4px 14px; border-radius: 20px; margin-bottom: 12px;
+  }
+  h1 { font-size: clamp(22px, 5vw, 36px); font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; }
+  .sub { color: var(--muted); font-size: 14px; margin-top: 6px; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+  .tag {
+    font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 12px; border: 1px solid;
+  }
+
+  /* FILTER */
+  .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; padding: 20px 20px 0; justify-content: center; }
+  .filter-btn {
+    background: var(--card); border: 1px solid var(--border); color: var(--muted);
+    padding: 6px 14px; border-radius: 20px; font-family: var(--sans);
+    font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.18s; letter-spacing: 0.3px;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #0d1117; font-weight: 700; }
+
+  /* PROGRESS */
+  .progress-bar {
+    margin: 16px auto 0; background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 16px; display: flex; align-items: center;
+    gap: 14px; max-width: 720px;
+  }
+  .prog-track { flex:1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .prog-fill { height:100%; background: linear-gradient(90deg, var(--accent), var(--accent3)); border-radius:3px; transition: width 0.4s ease; }
+  .prog-text { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .score-text { font-size: 12px; font-weight: 700; white-space: nowrap; }
+
+  /* QUESTIONS */
+  .questions-grid { display: flex; flex-direction: column; gap: 16px; padding: 20px; max-width: 760px; margin: 0 auto; }
+
+  .q-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; transition: border-color 0.2s;
+  }
+  .q-card:hover { border-color: #303a5a; }
+  .q-card.answered-correct { border-color: rgba(61,219,168,0.45); }
+  .q-card.answered-wrong { border-color: rgba(255,107,107,0.4); }
+
+  .q-header { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px 12px; }
+  .q-num {
+    font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--accent);
+    background: rgba(124,158,248,0.10); border: 1px solid rgba(124,158,248,0.2);
+    border-radius: 6px; padding: 3px 8px; white-space: nowrap; margin-top: 2px;
+  }
+  .q-meta { flex: 1; }
+  .q-topic-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.8px; margin-bottom: 7px; }
+  .q-text { font-size: 15px; font-weight: 500; line-height: 1.55; color: var(--text); }
+  .q-text .math { font-family: var(--mono); font-size: 14px; color: #c8d8ff; background: rgba(255,255,255,0.05); padding: 1px 5px; border-radius: 4px; }
+  .diff-badge { font-size: 10px; padding: 2px 9px; border-radius: 10px; font-weight: 700; white-space: nowrap; margin-top: 2px; align-self: flex-start; }
+  .diff-hard { background: rgba(255,107,107,0.13); color: var(--accent2); }
+  .diff-tricky { background: rgba(192,132,252,0.13); color: var(--accent5); }
+
+  .q-options { padding: 0 18px 6px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .opt-btn {
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    padding: 10px 13px; border-radius: 10px; font-family: var(--sans); font-size: 13px;
+    cursor: pointer; text-align: left; transition: all 0.16s; line-height: 1.45;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .opt-lbl { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--muted); min-width: 16px; }
+  .opt-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .opt-btn.correct { background: rgba(61,219,168,0.10); border-color: var(--accent3); color: var(--accent3); }
+  .opt-btn.wrong { background: rgba(255,107,107,0.10); border-color: var(--accent2); color: var(--accent2); }
+  .opt-btn:disabled { cursor: default; }
+
+  .q-reveal { padding: 0 18px 16px; display: none; }
+  .q-reveal.visible { display: block; }
+
+  /* STRATEGY BOX */
+  .strat-box { background: rgba(124,158,248,0.06); border: 1px solid rgba(124,158,248,0.18); border-radius: 10px; padding: 14px 16px; margin-top: 10px; }
+  .strat-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 9px; display: flex; align-items: center; gap: 6px; }
+  .strat-body { font-size: 13.5px; color: #bcc8e0; line-height: 1.7; }
+  .strat-body strong { color: var(--accent4); font-weight: 600; }
+  .strat-body em { color: var(--accent3); font-style: normal; font-weight: 600; }
+  .strat-body code { font-family: var(--mono); font-size: 12.5px; background: rgba(255,255,255,0.07); padding: 1px 6px; border-radius: 4px; color: var(--accent3); }
+
+  /* TRICK TAG */
+  .trick-tag {
+    display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 8px; margin-bottom: 8px;
+    background: rgba(255,201,107,0.12); color: var(--accent4); border: 1px solid rgba(255,201,107,0.25);
+  }
+
+  .ans-row { font-size: 13px; color: var(--muted); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
+  .ans-val { font-family: var(--mono); font-weight: 600; color: var(--accent3); font-size: 13px; }
+  .reset-btn { display: block; margin: 10px auto 0; background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 5px 12px; border-radius: 8px; font-family: var(--sans); font-size: 12px; cursor: pointer; transition: all 0.18s; }
+  .reset-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  /* TOPIC COLOURS */
+  .tc-surds { color: #a78bfa; } .tc-algebra { color: #60a5fa; } .tc-graphs { color: #34d399; }
+  .tc-probability { color: #f87171; } .tc-number { color: #facc15; } .tc-geometry { color: #e879f9; }
+  .tc-ratios { color: #38bdf8; } .tc-trig { color: #fb923c; } .tc-stats { color: #4ade80; }
+  .tc-measure { color: #f472b6; }
+
+  @media (max-width: 500px) { .q-options { grid-template-columns: 1fr; } h1 { font-size: 22px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Victoria Selective · Advanced Set 2</div>
+  <h1>Hard Maths Revision</h1>
+  <div class="sub">20 tricky questions · Elimination tricks · Smart shortcuts</div>
+  <div class="tags">
+    <span class="tag" style="color:#a78bfa;border-color:rgba(167,139,250,0.3)">Surds</span>
+    <span class="tag" style="color:#60a5fa;border-color:rgba(96,165,250,0.3)">Algebra</span>
+    <span class="tag" style="color:#34d399;border-color:rgba(52,211,153,0.3)">Graphs</span>
+    <span class="tag" style="color:#f87171;border-color:rgba(248,113,113,0.3)">Probability</span>
+    <span class="tag" style="color:#facc15;border-color:rgba(250,204,21,0.3)">Number</span>
+    <span class="tag" style="color:#e879f9;border-color:rgba(232,121,249,0.3)">Geometry</span>
+    <span class="tag" style="color:#38bdf8;border-color:rgba(56,189,248,0.3)">Ratios</span>
+    <span class="tag" style="color:#fb923c;border-color:rgba(251,146,60,0.3)">Trig</span>
+    <span class="tag" style="color:#4ade80;border-color:rgba(74,222,128,0.3)">Stats</span>
+    <span class="tag" style="color:#f472b6;border-color:rgba(244,114,182,0.3)">Measure</span>
+  </div>
+</header>
+
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" onclick="filterTopic('all',this)">All</button>
+  <button class="filter-btn" onclick="filterTopic('surds',this)">Surds</button>
+  <button class="filter-btn" onclick="filterTopic('algebra',this)">Algebra</button>
+  <button class="filter-btn" onclick="filterTopic('graphs',this)">Graphs</button>
+  <button class="filter-btn" onclick="filterTopic('probability',this)">Probability</button>
+  <button class="filter-btn" onclick="filterTopic('number',this)">Number</button>
+  <button class="filter-btn" onclick="filterTopic('geometry',this)">Geometry</button>
+  <button class="filter-btn" onclick="filterTopic('ratios',this)">Ratios</button>
+  <button class="filter-btn" onclick="filterTopic('trig',this)">Trig</button>
+  <button class="filter-btn" onclick="filterTopic('stats',this)">Stats</button>
+  <button class="filter-btn" onclick="filterTopic('measure',this)">Measure</button>
+</div>
+
+<div class="progress-bar" style="margin-left:auto;margin-right:auto;max-width:720px;margin-top:16px;">
+  <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  <div class="prog-text" id="progText">0 / 20 answered</div>
+  <div class="score-text" id="scoreText" style="color:var(--accent3)">Score: 0</div>
+</div>
+
+<div class="questions-grid" id="questionsGrid"></div>
+
+<script>
+const questions = [
+  // ── SURDS ──
+  {
+    id:1, topic:'surds', topicLabel:'Surds', topicClass:'tc-surds', diff:'hard',
+    text:'Expand and simplify: <span class="math">(√3 + √2)²</span>',
+    options:['5 + 2√6', '5 + √6', '5', '7'],
+    answer:0,
+    trick:'Difference of Squares / FOIL Trap',
+    strategy:`<strong>Use FOIL — don't just square each term separately.</strong> (√3 + √2)² = (√3)² + 2·√3·√2 + (√2)² = 3 + 2√6 + 2 = <code>5 + 2√6</code>.
+<br><br><strong>Common trap:</strong> students square each term and get √3² + √2² = 3+2 = 5, forgetting the cross term 2√6. If you see "5" alone as an option, that's the trap — always expand fully.
+<br><br><em>Estimation check:</em> (1.732+1.414)² = (3.146)² ≈ 9.90. And 5+2√6 = 5+4.90 = 9.90 ✓`
+  },
+  {
+    id:2, topic:'surds', topicLabel:'Surds', topicClass:'tc-surds', diff:'tricky',
+    text:'Without a calculator, which is larger: <span class="math">√7 + √3</span> or <span class="math">√10 + 1</span>?',
+    options:['√7 + √3 is larger','They are equal','√10 + 1 is larger','Cannot be determined'],
+    answer:0,
+    trick:'Square Both Sides to Compare Surds',
+    strategy:`<strong>Squaring preserves inequality when both sides are positive — use it to avoid decimals.</strong>
+<br>(√7+√3)² = 7 + 2√21 + 3 = 10 + 2√21.
+<br>(√10+1)² = 10 + 2√10 + 1 = 11 + 2√10.
+<br><br>Compare 10+2√21 vs 11+2√10 → compare 2√21 vs 1+2√10. √21≈4.58, √10≈3.16. So 2√21≈9.17 vs 1+2√10≈7.32. Therefore (√7+√3)²>(√10+1)² → <code>√7+√3 is larger</code>.
+<br><br><em>Estimation shortcut:</em> √7≈2.65, √3≈1.73 → sum≈4.38. √10≈3.16, +1=4.16. Clearly A wins.
+<br><br><strong>Trap:</strong> Option C (√10+1) looks bigger because √10 is a single large root. But √7+√3 combines two roots — the "spread" of two medium surds often beats one large one plus a constant.`
+  },
+  // ── ALGEBRA ──
+  {
+    id:3, topic:'algebra', topicLabel:'Algebra', topicClass:'tc-algebra', diff:'hard',
+    text:'If <span class="math">2x + 3y = 12</span> and <span class="math">x − y = 1</span>, find <span class="math">x + y</span>.',
+    options:['4', '5', '6', '7'],
+    answer:1,
+    trick:'Solve for the Target, Not the Variables',
+    strategy:`<strong>Don't solve for x and y separately — find x+y directly.</strong>
+<br><br>From x−y=1 → x=y+1. Sub into first: 2(y+1)+3y=12 → 5y=10 → y=2, x=3.
+<br>So x+y = <code>5</code>.
+<br><br><em>Smarter shortcut:</em> Add the two equations cleverly. Notice: (2x+3y) + k(x−y) = something useful. If we add (2x+3y=12) and 2×(x−y=1): 4x+y=14. Not quite. Instead just substitute — fastest path here.
+<br><br><strong>Elimination tip:</strong> if the question asks for x+y (not x or y alone), plug answer options back. Try x+y=5 → with x−y=1 → x=3,y=2. Check: 2(3)+3(2)=12 ✓. Done in 10 seconds.`
+  },
+  {
+    id:4, topic:'algebra', topicLabel:'Algebra', topicClass:'tc-algebra', diff:'tricky',
+    text:'If <span class="math">x + 1/x = 5</span>, what is <span class="math">x² + 1/x²</span>?',
+    options:['21', '23', '25', '27'],
+    answer:1,
+    trick:'Square-and-Subtract Identity',
+    strategy:`<strong>Classic identity: square the given expression.</strong> (x + 1/x)² = x² + 2·(x·1/x) + 1/x² = x² + 2 + 1/x².
+<br><br>So: x² + 1/x² = (x + 1/x)² − 2 = 5² − 2 = 25 − 2 = <code>23</code>.
+<br><br><strong>Trap:</strong> Option C (25) is 5², which students pick by squaring 5 directly — wrong because the cross term is 2, not 0.
+<br><br><em>Memorise this:</em> if x+1/x = k, then x²+1/x² = k²−2. This comes up constantly in selective exams.`
+  },
+  // ── GRAPHS ──
+  {
+    id:5, topic:'graphs', topicLabel:'Graphs', topicClass:'tc-graphs', diff:'hard',
+    text:'A line passes through <span class="math">(2, 3)</span> and <span class="math">(5, 9)</span>. What is its y-intercept?',
+    options:['1', '−1', '−2', '2'],
+    answer:1,
+    trick:'Find Gradient First, Then Back-Calculate',
+    strategy:`<strong>Step 1: gradient = (9−3)/(5−2) = 6/3 = 2.</strong>
+<br>Step 2: use y=mx+c with point (2,3): 3 = 2(2)+c → c = 3−4 = <code>−1</code>.
+<br><br><strong>Elimination trick:</strong> gradient is 2 (positive, steep). Line passes through (2,3) which is above the x-axis but fairly low. For m=2, c must be negative to pass through (2,3). Eliminate options A (1) and D (2) immediately — they'd give y=2(2)+1=5≠3.
+<br><br><em>Quick check:</em> does (5,9) fit y=2x−1? → 2(5)−1=9 ✓`
+  },
+  {
+    id:6, topic:'graphs', topicLabel:'Graphs', topicClass:'tc-graphs', diff:'tricky',
+    text:'The parabola <span class="math">y = 2x² − 8x + 5</span> has its vertex at:',
+    options:['(2, −3)', '(−2, 3)', '(4, 5)', '(2, 3)'],
+    answer:0,
+    trick:'Axis of Symmetry Formula',
+    strategy:`<strong>Vertex x-coordinate: use x = −b/(2a).</strong> Here a=2, b=−8. So x = 8/4 = <code>2</code>. Eliminate B (x=−2) and C (x=4) immediately.
+<br><br><strong>Find y:</strong> y = 2(4)−8(2)+5 = 8−16+5 = <code>−3</code>. Vertex = (2, −3).
+<br><br><strong>Trap:</strong> Option D has the right x but wrong y sign. Students often compute 2(2)²−8(2)+5 as 8−16+5 and accidentally write +3 instead of −3. Always double-check the sign of the y-value.
+<br><br><em>Sanity check:</em> since a=2>0 the parabola opens upward, so vertex y is a minimum. −3 makes sense as a minimum.`
+  },
+  // ── PROBABILITY ──
+  {
+    id:7, topic:'probability', topicLabel:'Probability', topicClass:'tc-probability', diff:'hard',
+    text:'A fair die is rolled twice. What is the probability of getting <em>at least one 6</em>?',
+    options:['1/6', '1/3', '11/36', '12/36'],
+    answer:2,
+    trick:'Complementary Counting',
+    strategy:`<strong>NEVER add probabilities for "at least one" — use the complement.</strong>
+<br><br>P(at least one 6) = 1 − P(no 6 at all) = 1 − (5/6)² = 1 − 25/36 = <code>11/36</code>.
+<br><br><strong>Trap:</strong> Option B (1/3 = 12/36) is what you get if you incorrectly add 1/6+1/6. That double-counts the case where both rolls are 6. Option D (12/36) is the same trap.
+<br><br><em>Elimination:</em> P(at least one 6) must be less than 2×(1/6)=1/3 because of the double-count. So eliminate B and D. Between A and C: 1/6 is just for one roll — we have two, so answer must be bigger. → C.`
+  },
+  {
+    id:8, topic:'probability', topicLabel:'Probability', topicClass:'tc-probability', diff:'tricky',
+    text:'Cards numbered 1–5 are shuffled. Two are drawn without replacement. P(sum > 6)?',
+    options:['3/10', '2/5', '1/2', '1/3'],
+    answer:1,
+    trick:'List All Cases — Count Favourable',
+    strategy:`<strong>Total pairs: C(5,2) = 10. List pairs with sum > 6:</strong>
+<br>(2,5)=7 ✓, (3,4)=7 ✓, (3,5)=8 ✓, (4,5)=9 ✓ → 4 pairs.
+<br>P = 4/10 = <code>2/5</code>.
+<br><br><strong>Exam trick:</strong> for small sets (≤6 elements), listing all cases is faster than any formula. Don't waste time setting up equations.
+<br><br><em>Elimination:</em> P=1/2 seems too high (half the pairs don't sum to >6 by symmetry intuition — actually close). P=1/3 ≈ 3.3/10. P=3/10 is one short. The only option that matches 4/10 = 2/5 is B.`
+  },
+  // ── NUMBER ──
+  {
+    id:9, topic:'number', topicLabel:'Number', topicClass:'tc-number', diff:'tricky',
+    text:'What is the units digit of <span class="math">7<sup>53</sup></span>?',
+    options:['1', '3', '7', '9'],
+    answer:2,
+    trick:'Cyclicity of Units Digits',
+    strategy:`<strong>Units digits of powers cycle in a fixed pattern — find the period.</strong>
+<br>7¹=7, 7²=49, 7³=343, 7⁴=2401. Units digits: <code>7, 9, 3, 1, 7, 9, 3, 1...</code> Period = 4.
+<br><br>53 ÷ 4 = 13 remainder <strong>1</strong>. Position 1 in the cycle = <code>7</code>.
+<br><br><strong>The rule:</strong> divide the power by the period length; the remainder tells you the position in the cycle. Remainder 0 → last in cycle (for 7 that's 1).
+<br><br><em>This trick works for any base:</em> 2 has period 4, 3 has period 4, 4 has period 2, 7 has period 4, 8 has period 4. Memorise these for the exam.`
+  },
+  {
+    id:10, topic:'number', topicLabel:'Number', topicClass:'tc-number', diff:'hard',
+    text:'Three consecutive integers have a product of 120. What is the largest integer?',
+    options:['4', '5', '6', '7'],
+    answer:2,
+    trick:'Cube Root Estimation',
+    strategy:`<strong>The cube root of the product approximates the middle integer.</strong>
+<br>∛120 ≈ 4.93 → middle integer ≈ 5. So the three integers are 4, 5, 6.
+<br>Check: 4×5×6 = 120 ✓. Largest = <code>6</code>.
+<br><br><strong>Why it works:</strong> for n−1, n, n+1: product ≈ n³ when n is large. So ∛(product) ≈ n.
+<br><br><em>Elimination:</em> option D (7) → 5×6×7=210 too big. Option A (4) → 2×3×4=24 too small. That leaves B or C. Try 6: 4×5×6=120 ✓.`
+  },
+  // ── GEOMETRY ──
+  {
+    id:11, topic:'geometry', topicLabel:'Geometry', topicClass:'tc-geometry', diff:'hard',
+    text:'A regular hexagon has side length 6 cm. What is its area? (Leave in surd form)',
+    options:['54√3 cm²', '36√3 cm²', '108 cm²', '72√3 cm²'],
+    answer:0,
+    trick:'Hexagon = 6 Equilateral Triangles',
+    strategy:`<strong>A regular hexagon is made of 6 equilateral triangles, each with side = 6.</strong>
+<br>Area of one equilateral triangle = (√3/4)×s² = (√3/4)×36 = 9√3.
+<br>Total = 6×9√3 = <code>54√3 cm²</code>.
+<br><br><strong>Formula shortcut:</strong> Area of hexagon = (3√3/2)×s² = (3√3/2)×36 = 54√3. Same result.
+<br><br><em>Elimination:</em> 108 cm² (Option C) has no surd — suspicious for a geometry problem involving hexagons. Eliminate it. 72√3 would need s²×2√3 which isn't a standard formula. 36√3 is only 4 triangles' worth. Only 54√3 = 6 triangles.`
+  },
+  {
+    id:12, topic:'geometry', topicLabel:'Geometry', topicClass:'tc-geometry', diff:'tricky',
+    text:'A chord of length 8 cm is drawn in a circle of radius 5 cm. How far is the chord from the centre?',
+    options:['2 cm', '3 cm', '4 cm', '√41 cm'],
+    answer:1,
+    trick:'Perpendicular Bisector + Pythagoras',
+    strategy:`<strong>The perpendicular from the centre bisects the chord.</strong> So we get a right triangle: hypotenuse = radius = 5, one leg = half the chord = 4.
+<br>By Pythagoras: d² + 4² = 5² → d² = 25−16 = 9 → d = <code>3 cm</code>.
+<br><br><strong>Instant recognition:</strong> 3-4-5 is the classic Pythagorean triple. The moment you see half-chord=4 and radius=5, shout "3!" — no working needed.
+<br><br><em>Elimination:</em> d must be less than the radius (5 cm). Eliminate D (√41 > 5). d must be less than half-chord (4 cm) because the chord is further from centre than its endpoint. So eliminate A (2... actually valid) — test: 2²+4²=20≠25. Eliminate C (4): 4²+4²=32≠25. Only B works.`
+  },
+  // ── RATIOS ──
+  {
+    id:13, topic:'ratios', topicLabel:'Ratios & Rates', topicClass:'tc-ratios', diff:'tricky',
+    text:'Two alloys are mixed equally by weight. Alloy 1 is gold:silver = 3:5. Alloy 2 is gold:silver = 5:3. What is the final gold:silver ratio?',
+    options:['1:1', '4:4', '8:8', '3:5'],
+    answer:0,
+    trick:'Use a Common Weight to Compare',
+    strategy:`<strong>Use a concrete weight (say 8 kg of each alloy) to make fractions easy.</strong>
+<br>Alloy 1 (8kg): gold = 3/8×8 = 3kg, silver = 5kg.
+<br>Alloy 2 (8kg): gold = 5/8×8 = 5kg, silver = 3kg.
+<br>Total: gold = 3+5 = 8kg, silver = 5+3 = 8kg → ratio = <code>1:1</code>.
+<br><br><strong>Elegant insight:</strong> the ratios are "mirrors" of each other (3:5 and 5:3). When you mix equal weights of mirror-ratio alloys, you always get 1:1. You can spot this without calculating.
+<br><br><em>Eliminate B, C immediately</em> — "4:4" and "8:8" both simplify to 1:1, making A, B, C all the same answer. The setter means option A.`
+  },
+  {
+    id:14, topic:'ratios', topicLabel:'Ratios & Rates', topicClass:'tc-ratios', diff:'hard',
+    text:'A can do a job in 8 days, B in 12 days, C in 24 days. Working together, how many days?',
+    options:['3 days', '4 days', '5 days', '6 days'],
+    answer:1,
+    trick:'Add Work Rates as Fractions',
+    strategy:`<strong>Work rates: A=1/8, B=1/12, C=1/24 per day. Add them.</strong>
+<br>Common denominator = 24: 3/24 + 2/24 + 1/24 = 6/24 = 1/4 per day.
+<br>Time = 1 ÷ (1/4) = <code>4 days</code>.
+<br><br><strong>Estimation trick:</strong> A alone does it in 8 days, so together it should take well under 8. C is slowest (24 days) and adds little. A+B alone = 1/8+1/12 = 5/24 → about 4.8 days. Adding C brings it just under 5. → 4 days. Eliminate C and D immediately.
+<br><br><em>Between 3 and 4:</em> if answer were 3, rate = 1/3 > 1/8+1/12+1/24=1/4. But 1/3 > 1/4 is false as a combined rate. So answer is 4.`
+  },
+  // ── TRIG ──
+  {
+    id:15, topic:'trig', topicLabel:'Trigonometry', topicClass:'tc-trig', diff:'hard',
+    text:'If <span class="math">sin(x) = 3/5</span> and x is acute, find <span class="math">cos(2x)</span>.',
+    options:['7/25', '−7/25', '1/5', '24/25'],
+    answer:0,
+    trick:'Double Angle Formula',
+    strategy:`<strong>Use: cos(2x) = 1 − 2sin²(x).</strong>
+<br>sin²(x) = (3/5)² = 9/25.
+<br>cos(2x) = 1 − 2(9/25) = 1 − 18/25 = 7/25. Answer: <code>7/25</code>.
+<br><br><strong>Alternatively:</strong> find cos(x) first. Since sin=3/5 in a right triangle, the sides are 3-4-5. cos(x) = 4/5. Then cos(2x) = cos²x − sin²x = 16/25 − 9/25 = 7/25. Same answer, two routes.
+<br><br><em>Elimination:</em> x is acute and sin(x)=3/5 < sin(90°)=1, so x < 90°, meaning 2x < 180°. cos(2x) could be positive or negative depending on whether 2x is acute or obtuse. sin(x)=3/5 means x≈37°, so 2x≈74° — still acute, so cos(2x) > 0. Eliminate B (−7/25) immediately.`
+  },
+  {
+    id:16, topic:'trig', topicLabel:'Trigonometry', topicClass:'tc-trig', diff:'tricky',
+    text:'If <span class="math">tan(x) = 2</span>, find <span class="math">sin²(x)</span>.',
+    options:['2/5', '4/5', '1/5', '4/3'],
+    answer:1,
+    trick:'Use the tan-to-sin Identity',
+    strategy:`<strong>Key identity: sin²(x) = tan²(x) / (1 + tan²(x)).</strong>
+<br>= 4 / (1+4) = 4/5. Answer: <code>4/5</code>.
+<br><br><strong>Why the formula works:</strong> divide sin²+cos²=1 through by cos²(x): tan²(x)+1 = sec²(x). So cos²(x)=1/(1+tan²x) and sin²(x)=1−cos²(x) = tan²x/(1+tan²x).
+<br><br><em>Triangle approach (just as fast):</em> tan=2 means opposite=2, adjacent=1, hypotenuse=√5. sin(x) = 2/√5. sin²(x) = 4/5 ✓.
+<br><br><strong>Elimination:</strong> D (4/3) is > 1, impossible for sin²(x). Eliminate. sin²+cos²=1, and tan=2 means the angle is fairly large, so sin²(x) should be large too → A (2/5) is too small. Between B and C: intuitively sin²>cos² when tan>1, so sin²>1/2. Only B (4/5) satisfies that.`
+  },
+  // ── STATS ──
+  {
+    id:17, topic:'stats', topicLabel:'Statistics', topicClass:'tc-stats', diff:'hard',
+    text:'The mean of 5 numbers is 12. A 6th number, 18, is added. What is the new mean?',
+    options:['13', '14', '15', '12.5'],
+    answer:0,
+    trick:'Reverse-Engineer the Total',
+    strategy:`<strong>Never try to find the individual numbers — just find the total.</strong>
+<br>Total of 5 numbers = 5×12 = 60. New total = 60+18 = 78. New mean = 78/6 = <code>13</code>.
+<br><br><strong>Mental shortcut:</strong> 18 is 6 more than the current mean (12). Adding a number above the mean pulls the mean up. The extra 6 is spread over 6 numbers → mean increases by 6/6 = 1. New mean = 12+1 = 13.
+<br><br><em>This "pull" method is the fastest:</em> new number − old mean = 18−12 = 6. Spread over new count (6): 6÷6=1. Add to old mean: 12+1=13. One step!`
+  },
+  {
+    id:18, topic:'stats', topicLabel:'Statistics', topicClass:'tc-stats', diff:'tricky',
+    text:'Find the median of: <span class="math">3, 7, 2, 9, 4, 8, 5</span>',
+    options:['4', '5', '6', '7'],
+    answer:1,
+    trick:'Sort First — Don\'t Guess from the List',
+    strategy:`<strong>ALWAYS sort before finding the median.</strong> Sorted: 2, 3, 4, <code>5</code>, 7, 8, 9.
+<br>7 numbers → middle is the 4th value = <code>5</code>.
+<br><br><strong>Trap:</strong> the unsorted middle value is 4 (position 4 in the original list) — that's Option A, the trap. Never take the "middle" of an unsorted list.
+<br><br><em>Fast sort trick:</em> quickly identify smallest (2) and largest (9), then slot others in mentally. For odd n, median = value at position (n+1)/2 = 4th. Count to 4 in the sorted list.`
+  },
+  // ── MEASURE ──
+  {
+    id:19, topic:'measure', topicLabel:'Measurement', topicClass:'tc-measure', diff:'hard',
+    text:'A cone has base radius 3 cm, height 4 cm, and slant height 5 cm. Find its total surface area. (Use π as a symbol)',
+    options:['24π cm²', '15π cm²', '9π cm²', '21π cm²'],
+    answer:0,
+    trick:'Spot the Pythagorean Triple for Slant Height',
+    strategy:`<strong>Total surface area of cone = πr² + πrl</strong> (base + curved surface).
+<br>= π(3²) + π(3)(5) = 9π + 15π = <code>24π cm²</code>.
+<br><br><strong>Key trick:</strong> radius=3, height=4, slant=5 is a 3-4-5 Pythagorean triple — the slant height is given directly (no need to calculate it). The exam often hides this gift.
+<br><br><em>Elimination:</em> curved surface alone = πrl = 15π. Adding the base must give more than 15π. Eliminate B and C. Option D (21π) = 15π+6π — that would mean base area = 6π = π×r² → r²=6, but r=3 → r²=9. So D is wrong. Only A (24π = 15π+9π) is correct.`
+  },
+  {
+    id:20, topic:'measure', topicLabel:'Measurement', topicClass:'tc-measure', diff:'tricky',
+    text:'A cylinder has radius 7 cm and height 10 cm. A cone with the same base and height is removed from inside it. What is the remaining volume? (Leave in terms of π)',
+    options:['490π cm³', '980π/3 cm³', '245π cm³', '490π/3 cm³'],
+    answer:1,
+    trick:'Volume Subtraction — Cylinder minus Cone',
+    strategy:`<strong>V(cylinder) = πr²h = π×49×10 = 490π.</strong>
+<br><strong>V(cone) = (1/3)πr²h = (1/3)×490π = 490π/3.</strong>
+<br>Remaining = 490π − 490π/3 = 1470π/3 − 490π/3 = <code>980π/3 cm³</code>.
+<br><br><strong>Quick mental route:</strong> Cylinder − Cone = πr²h − (1/3)πr²h = (2/3)πr²h. So remaining is always 2/3 of the cylinder. 2/3 × 490π = 980π/3.
+<br><br><em>Elimination:</em> Option A (490π) is the full cylinder with nothing removed — wrong. Option C (245π = 490π/2) would mean half removed — but a cone with the same base and height is 1/3, not half. Option D (490π/3) is just the cone volume. Answer must be B.`
+  }
+];
+
+let answered = {}, correct = 0;
+
+function tcClass(t) {
+  const m = {surds:'tc-surds',algebra:'tc-algebra',graphs:'tc-graphs',probability:'tc-probability',
+    number:'tc-number',geometry:'tc-geometry',ratios:'tc-ratios',trig:'tc-trig',stats:'tc-stats',measure:'tc-measure'};
+  return m[t]||'';
+}
+
+function updateProgress() {
+  const visible = [...document.querySelectorAll('.q-card')];
+  const total = visible.length;
+  const done = visible.filter(c => answered[c.dataset.qid] !== undefined).length;
+  const c = visible.filter(c => answered[c.dataset.qid] === 'correct').length;
+  const pct = total ? (done/total*100) : 0;
+  document.getElementById('progFill').style.width = pct+'%';
+  document.getElementById('progText').textContent = `${done} / ${total} answered`;
+  document.getElementById('scoreText').textContent = `Score: ${c}/${done||1} (${done?Math.round(c/done*100):0}%)`;
+}
+
+function selectOption(qid, idx) {
+  if (answered[qid] !== undefined) return;
+  const q = questions.find(x => x.id == qid);
+  const isCorrect = idx === q.answer;
+  answered[qid] = isCorrect ? 'correct' : 'wrong';
+  const card = document.getElementById('qcard-'+qid);
+  card.querySelectorAll('.opt-btn').forEach((btn,i) => {
+    btn.disabled = true;
+    if (i === q.answer) btn.classList.add('correct');
+    else if (i === idx) btn.classList.add('wrong');
+  });
+  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+  document.getElementById('reveal-'+qid).classList.add('visible');
+  updateProgress();
+}
+
+function resetCard(qid) {
+  delete answered[qid];
+  const card = document.getElementById('qcard-'+qid);
+  card.classList.remove('answered-correct','answered-wrong');
+  card.querySelectorAll('.opt-btn').forEach(b => { b.disabled=false; b.classList.remove('correct','wrong'); });
+  document.getElementById('reveal-'+qid).classList.remove('visible');
+  updateProgress();
+}
+
+function renderQuestions(filter) {
+  const list = filter==='all' ? questions : questions.filter(q=>q.topic===filter);
+  document.getElementById('questionsGrid').innerHTML = list.map(q=>`
+    <div class="q-card" id="qcard-${q.id}" data-qid="${q.id}" data-topic="${q.topic}">
+      <div class="q-header">
+        <div class="q-num">Q${q.id}</div>
+        <div class="q-meta">
+          <div class="q-topic-label ${q.topicClass}">${q.topicLabel}</div>
+          <div class="q-text">${q.text}</div>
+        </div>
+        <div class="diff-badge diff-${q.diff}">${q.diff.toUpperCase()}</div>
+      </div>
+      <div class="q-options">
+        ${q.options.map((o,i)=>`
+          <button class="opt-btn" onclick="selectOption(${q.id},${i})">
+            <span class="opt-lbl">${'ABCD'[i]}</span>${o}
+          </button>`).join('')}
+      </div>
+      <div class="q-reveal" id="reveal-${q.id}">
+        <div class="strat-box">
+          <div class="strat-title">⚡ Smart Strategy</div>
+          <div class="trick-tag">🎯 ${q.trick}</div>
+          <div class="strat-body">${q.strategy}</div>
+        </div>
+        <div class="ans-row">✓ Correct answer: <span class="ans-val">${q.options[q.answer]}</span></div>
+        <button class="reset-btn" onclick="resetCard(${q.id})">↺ Try again</button>
+      </div>
+    </div>`).join('');
+
+  // Restore state
+  Object.entries(answered).forEach(([qid, result]) => {
+    const q = questions.find(x=>x.id==qid);
+    const card = document.getElementById('qcard-'+qid);
+    if (!card||!q) return;
+    card.classList.add(result==='correct'?'answered-correct':'answered-wrong');
+    document.getElementById('reveal-'+qid).classList.add('visible');
+    // find which index was selected — can't restore exactly without storing index, just show reveal
+    card.querySelectorAll('.opt-btn').forEach((btn,i)=>{ btn.disabled=true; if(i===q.answer) btn.classList.add('correct'); });
+  });
+  updateProgress();
+}
+
+function filterTopic(topic, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderQuestions(topic);
+}
+
+renderQuestions('all');
+</script>
+</body>
+</html>
